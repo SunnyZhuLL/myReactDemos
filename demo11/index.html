@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<script type="text/babel">
+    //Ajax 可以使用 componentDidMount 方法设置 Ajax 请求，等到请求成功，再用 this.setState 方法重新渲染 UI
+
+    var UserGist = React.createClass({
+        getInitialState:function(){
+            return {
+                username:'',
+                lastGistUrl:''
+            };
+        },
+        componentDidMount:function(){
+            $.get(this.props.source,function(result){
+                var lastGist = result[0];
+                if(this.isMounted){
+                    this.setState({
+                        username:lastGist.owner.login,
+                        lastGistUrl:lastGist.html_url
+                    })
+                }
+            }.bind(this));
+        },
+        render:function(){
+            return (
+                <div>
+                    {this.state.username}'s last gist is
+                    <a href={this.state.lastGistUrl}here></a>
+                </div>
+            )
+        }
+    })
+    ReactDOM.render(
+        <UserGist source="json.js"/>,
+        document.body
+    )
+</script>
+</body>
+</html>

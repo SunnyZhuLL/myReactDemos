@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/babel">
+    //组件类的propType属性，是用来验证组件实例的属性是否符合要求
+    //getDefaultProps 设置组件属性的默认值
+    var Mytitle = React.createClass({
+        getDefaultProps:function(){
+            return {
+                title:'Hello World'
+            }
+        },
+        render:function(){
+            return <h1>{this.props.title}</h1>
+        }
+
+    })
+    ReactDOM.render(
+        <Mytitle/>,
+        document.getElementById('container')
+    )
+</script>
+</body>
+</html>
